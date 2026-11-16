@@ -1,0 +1,10 @@
+[project]
+name = "ChatApp"
+version = "1.0.0"
+dependencies = [
+  "flet",
+  "requests",
+  "urllib3",
+  "python-socketio[client]",
+  "websocket-client"
+]
