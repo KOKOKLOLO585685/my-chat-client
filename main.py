@@ -3,7 +3,7 @@ import os, json, time, requests, urllib3, socketio, flet as ft
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 BASE_URL = "https://my-chat-app-s2fw.onrender.com"
-SESSION_FILE = "session.json"
+SESSION_FILE = os.path.join(os.path.expanduser("~"), "chat_session.json")
 
 def save_session(user_data):
     with open(SESSION_FILE, "w", encoding="utf-8") as f:
