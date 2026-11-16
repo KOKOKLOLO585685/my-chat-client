@@ -10,13 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install Flet
-        run: pip install flet flet-cli
+      - name: Install Dependencies
+        run: pip install flet flet-cli -r requirements.txt
       - name: Build APK
-        run: flet build apk --project "ChatApp" --product "تطبيق المراسلة"
+        run: flet build apk --yes --project "ChatApp" --product "ChatApp"
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
@@ -27,13 +34,16 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install Flet
-        run: pip install flet flet-cli
+      - name: Install Dependencies
+        run: pip install flet flet-cli -r requirements.txt
       - name: Build Windows
-        run: flet build windows --project "ChatApp" --product "تطبيق المراسلة"
+        run: flet build windows --yes --project "ChatApp" --product "ChatApp"
       - name: Upload Windows App
         uses: actions/upload-artifact@v4
         with:
