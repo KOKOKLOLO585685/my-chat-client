@@ -1,0 +1,41 @@
+name: Build Apps
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build_android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Flet
+        run: pip install flet flet-cli
+      - name: Build APK
+        run: flet build apk --project "ChatApp" --product "تطبيق المراسلة"
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android-APK
+          path: build/apk/*.apk
+
+  build_windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Flet
+        run: pip install flet flet-cli
+      - name: Build Windows
+        run: flet build windows --project "ChatApp" --product "تطبيق المراسلة"
+      - name: Upload Windows App
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows-EXE
+          path: build/windows/
